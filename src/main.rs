@@ -1,31 +1,20 @@
-#[derive(Debug)]
-struct ImportantExcerpt<'a> {
-    part: &'a str,
-}
+use std::fmt::Display;
 
 fn main() {
-    let novel = String::from("call me ishmael. Some years ago...");
-    let first_sentence = novel.split('.').next().expect("Could not find a '.'");
 
-    let i = ImportantExcerpt {
-        part: first_sentence,
-    };
+    let longest = longest_with_an_announcement("hello", "world!", "最多字符串");
 
-
-    println!("i: {:?}", i);
+    println!("longest: {}", longest);
 }
 
-
-
-fn first_word(s: &str) -> &str {
-    let bytes = s.as_bytes();
-
-    for (i, &item) in bytes.iter().enumerate() {
-        if item == b' ' {
-            return &s[0..i];
-        }
+fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a str
+where
+    T: Display,
+{
+    println!("Announcement! {}", ann);
+    if x.len() > y.len() {
+        x
+    } else {
+        y
     }
-
-    &s[..]
 }
-
